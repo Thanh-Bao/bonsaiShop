@@ -9,4 +9,14 @@ public class ApplicationDbContext : DbContext
     {
 
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Product>()
+            .HasOne(p => p.CreatedBy)
+            .WithMany(u => u.Products)
+            .HasForeignKey(p => p.CreatedById);
+    }
 }

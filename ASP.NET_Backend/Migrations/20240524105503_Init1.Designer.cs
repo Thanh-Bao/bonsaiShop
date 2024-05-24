@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASP.NET_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240524094804_NameMigration")]
-    partial class NameMigration
+    [Migration("20240524105503_Init1")]
+    partial class Init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,11 +26,12 @@ namespace ASP.NET_Backend.Migrations
 
             modelBuilder.Entity("Product", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("description")
                         .IsRequired()
@@ -51,12 +52,14 @@ namespace ASP.NET_Backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedById");
+
                     b.ToTable("Product");
                 });
 
             modelBuilder.Entity("User", b =>
                 {
-                    b.Property<string>("name")
+                    b.Property<string>("username")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -67,9 +70,25 @@ namespace ASP.NET_Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("name");
+                    b.HasKey("username");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Product", b =>
+                {
+                    b.HasOne("User", "CreatedBy")
+                        .WithMany("Products")
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+                });
+
+            modelBuilder.Entity("User", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
