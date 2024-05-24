@@ -13,7 +13,7 @@ public class Product
     public string name { set; get; }
 
     [Required]
-     [Range(100000, 1000000, ErrorMessage = "Price must be between 100.000VND and 1000.0000VND")]
+     [Range(100000, 1000000, ErrorMessage = "Price must be between 100.000VND and 1000.000VND")]
     public int price { set; get; }
 
     [Required]
