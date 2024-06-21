@@ -11,7 +11,7 @@ const ProductList = () => {
         const fetchProducts = async () => {
             try {
                 const token = localStorage.getItem('token'); // Lấy token từ localStorage
-                const response = await axios.get('http://localhost:32768/api/product', {
+                const response = await axios.get('http://103.109.37.107:81/api/product', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

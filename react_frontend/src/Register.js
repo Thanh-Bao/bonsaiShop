@@ -11,7 +11,7 @@ const Register = () => {
 
     const handleRegister = async () => {
         try {
-            const response = await axios.post('http://localhost:32768/api/user', {
+            const response = await axios.post('http://103.109.37.107:81/api/user', {
                 username,
                 password,
             });

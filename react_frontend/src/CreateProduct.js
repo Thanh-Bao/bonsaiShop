@@ -23,7 +23,7 @@ const CreateProduct = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post('http://localhost:32768/api/product', {
+            const response = await axios.post('http://103.109.37.107:81/api/product', {
                 name,
                 price,
                 quantity,
